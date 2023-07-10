@@ -1,0 +1,107 @@
+* {
+    padding: 0;
+    margin: 0;
+    /* outline: purple solid 1px; */
+    text-align: center;
+}
+
+body {
+    padding: 0cm 1em;
+    display: block;
+}
+
+header {
+    width: 100%;
+    color: black;
+}
+
+main {
+    color: black;
+}
+
+footer {
+    color: black;
+}
+
+#board {
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+
+#status {
+    display: inline-flex;
+    font-size: 0;
+    /* justify-content: space-between; */
+}
+
+#status * {
+    font-size: small;
+    margin: 1%;
+}
+
+#field {
+    display: inline-block;
+    height: 180px;
+    width: 180px;
+    font-size: 12px;
+    transform: scale(1);
+}
+
+#field #cells {
+    content: "";
+    height: 20px;
+    width: 20px;
+    display: table-cell;
+    outline: black solid 1px;
+    background: gainsboro;
+    text-align: center;
+}
+
+#field #cells.Open {
+    background: aliceblue;
+}
+
+#field #cells[data-item="Bomb"]::before {
+    content: "💣";
+}
+
+#field #cells[data-item="flag"]::before {
+    content: "🚩";
+}
+
+#field #cells[data-item="0"]::before {
+    content: "0";
+}
+
+#field #cells[data-item="1"]::before {
+    content: "1";
+}
+
+#field #cells[data-item="2"]::before {
+    content: "2";
+}
+
+#field #cells[data-item="3"]::before {
+    content: "3";
+}
+
+#field #cells[data-item="4"]::before {
+    content: "4";
+}
+
+#field #cells[data-item="5"]::before {
+    content: "5";
+}
+
+#field #cells[data-item="6"]::before {
+    content: "6";
+}
+
+#field #cells[data-item="7"]::before {
+    content: "7";
+}
+
+#field #cells[data-item="8"]::before {
+    content: "8";
+}

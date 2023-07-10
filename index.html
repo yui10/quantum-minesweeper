@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum minesweeper</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Quantum minesweeper</h1>
+    </header>
+    <main>
+        <div id="setting">
+            <p>
+                <select id="gameLevel">
+                    <option value="9:9:10">Beginner(9×9 Mines:10)</option>
+                    <option value="16:16:40">Intermediate(16×16 Mines:40)</option>
+                    <option value="30:16:99">Expert(30×16 Mines:99)</option>
+                </select>
+                <input type="button" id="NewGameButton" value="🎮New Game">
+            </p>
+        </div>
+        <br>
+        <div id="board">
+            <div id="status">
+                <div>💣<span id="BombCounter"></span></div>
+                <div>⏱<span id="timer">000</span></div>
+                <input type="button" id="observationButton" value="🔍observation">
+            </div>
+            <div id="GameMessage"></div>
+            <div id="field"></div>
+        </div>
+    </main>
+    <footer>
+        <a href="https://github.com/yui10/quantum-minesweeper">
+            <img src="./img/github-mark.png" width="20px" alt="GitHub"></a>
+        <p>&copy; 2023 <a href="https://github.com/yui10">yui10</a></p>
+    </footer>
+
+    <script src="./js/game.js"></script>
+    <script src="./js/UI.js"></script>
+</body>
+
+</html>
