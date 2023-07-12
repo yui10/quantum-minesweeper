@@ -34,7 +34,7 @@ const OperationStatus = {
 }
 
 class Game {
-    #base_board = [[], []];
+    #base_board = [[], [], []];
     get Board() { return this.#base_board[1].map(list => ({ ...list })); }
 
     #width = 9;
@@ -112,10 +112,7 @@ class Game {
         this.#GameStatus = GameStatus.PLAYING;
         this.#Around(y, x, (y, x) => {
             this.#base_board[0][y][x] = GameItem.PROHIBITED_AREA;
-            // this.#base_board[1][y][x] = CellStatus.Open;
-        })
-        // this.#base_board[0][y][x] = GameItem.PROHIBITED_AREA;
-        // this.#base_board[1][y][x] = CellStatus.Open;
+        });
 
         for (let i = 0; i < this.#BombCount; i++) {
             while (true) {
@@ -125,6 +122,13 @@ class Game {
                     this.#base_board[0][r_y][r_x] = GameItem.BOMB;
                     break;
                 }
+            }
+        }
+
+        for (let i = 0; i < this.#height; i++) {
+            this.#base_board[2][i] = Array(this.#width).fill(0);
+            for (let j = 0; j < this.#width; j++) {
+                this.#base_board[2][i][j] = this.#CountAroundItemCell(i, j, GameItem.BOMB, this.#base_board[0]);
             }
         }
     }
@@ -184,7 +188,6 @@ class Game {
             this.#GameStatus = GameStatus.END;
             return OperationStatus.GameClear;
         }
-        console.log(this.#NowEmptyCount, this.#NowFlagCount)
 
         return OperationStatus.Success;
     }
@@ -203,7 +206,7 @@ class Game {
             this.#NowFlagCount--
             this.#NowEmptyCount++;
         }
-        console.log(this.#NowEmptyCount, this.#NowFlagCount)
+
         return OperationStatus.Success;
     }
 
@@ -214,7 +217,6 @@ class Game {
     GetBombCountMap() {
         let Quantum_map = []
         const item = [GameItem.EMPTY, GameItem.BOMB];
-        // const item = [GameItem.BOMB];//デバッグ用
         for (let i = 0; i < this.#height; i++) {
             Quantum_map[i] = Array(this.#width).fill(GameItem.EMPTY);
             for (let j = 0; j < this.#width; j++) {
@@ -230,7 +232,7 @@ class Game {
             Bomb_count_map[i] = Array(this.#width).fill(0);
             for (let j = 0; j < this.#width; j++) {
                 if (this.#base_board[1][i][j] === CellStatus.Open) {
-                    Bomb_count_map[i][j] = this.#CountAroundItemCell(i, j, GameItem.BOMB, Quantum_map);
+                    Bomb_count_map[i][j] = (this.#base_board[2][i][j] === 0) ? "" : this.#CountAroundItemCell(i, j, GameItem.BOMB, Quantum_map);
                 }
             }
         }
@@ -247,14 +249,6 @@ class Game {
      */
     #CountAroundItemCell(y, x, item, board) {
         let count = 0;
-        // const xMin = Math.max(0, x - 1), xMax = Math.min(this.#width, x + 2);
-        // const yMin = Math.max(0, y - 1), yMax = Math.min(this.#height, y + 2);
-        // for (let i = yMin; i < yMax; i++) {
-        //     for (let j = xMin; j < xMax; j++) {
-        //         if (i == y && j == x) continue;
-        //         if (board[i][j] === item) count++;
-        //     }
-        // }
         this.#Around(y, x, (i, j) => {
             if (i == y && j == x) return;
             if (board[i][j] === item) count++;
@@ -281,5 +275,4 @@ class Game {
             }
         }
     }
-
 }

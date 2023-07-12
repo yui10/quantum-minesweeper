@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    /* outline: purple solid 1px; */
     text-align: center;
 }
 
@@ -32,7 +31,6 @@ footer {
 #status {
     display: inline-flex;
     font-size: 0;
-    /* justify-content: space-between; */
 }
 
 #status * {
@@ -72,36 +70,45 @@ footer {
 
 #field #cells[data-item="0"]::before {
     content: "0";
+    color: black;
 }
 
 #field #cells[data-item="1"]::before {
     content: "1";
+    color: blue;
 }
 
 #field #cells[data-item="2"]::before {
     content: "2";
+    color: green;
 }
 
 #field #cells[data-item="3"]::before {
     content: "3";
+    color: red;
 }
 
 #field #cells[data-item="4"]::before {
     content: "4";
+    color: navy;
 }
 
 #field #cells[data-item="5"]::before {
     content: "5";
+    color: darkred;
 }
 
 #field #cells[data-item="6"]::before {
     content: "6";
+    color: hotpink;
 }
 
 #field #cells[data-item="7"]::before {
     content: "7";
+    color: gray;
 }
 
 #field #cells[data-item="8"]::before {
     content: "8";
+    color: rebeccapurple;
 }
