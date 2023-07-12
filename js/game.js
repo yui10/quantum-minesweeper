@@ -112,10 +112,7 @@ class Game {
         this.#GameStatus = GameStatus.PLAYING;
         this.#Around(y, x, (y, x) => {
             this.#base_board[0][y][x] = GameItem.PROHIBITED_AREA;
-            // this.#base_board[1][y][x] = CellStatus.Open;
-        })
-        // this.#base_board[0][y][x] = GameItem.PROHIBITED_AREA;
-        // this.#base_board[1][y][x] = CellStatus.Open;
+        });
 
         for (let i = 0; i < this.#BombCount; i++) {
             while (true) {
@@ -191,7 +188,6 @@ class Game {
             this.#GameStatus = GameStatus.END;
             return OperationStatus.GameClear;
         }
-        console.log(this.#NowEmptyCount, this.#NowFlagCount)
 
         return OperationStatus.Success;
     }
@@ -210,7 +206,7 @@ class Game {
             this.#NowFlagCount--
             this.#NowEmptyCount++;
         }
-        console.log(this.#NowEmptyCount, this.#NowFlagCount)
+
         return OperationStatus.Success;
     }
 
@@ -221,7 +217,6 @@ class Game {
     GetBombCountMap() {
         let Quantum_map = []
         const item = [GameItem.EMPTY, GameItem.BOMB];
-        // const item = [GameItem.BOMB];//デバッグ用
         for (let i = 0; i < this.#height; i++) {
             Quantum_map[i] = Array(this.#width).fill(GameItem.EMPTY);
             for (let j = 0; j < this.#width; j++) {
@@ -254,14 +249,6 @@ class Game {
      */
     #CountAroundItemCell(y, x, item, board) {
         let count = 0;
-        // const xMin = Math.max(0, x - 1), xMax = Math.min(this.#width, x + 2);
-        // const yMin = Math.max(0, y - 1), yMax = Math.min(this.#height, y + 2);
-        // for (let i = yMin; i < yMax; i++) {
-        //     for (let j = xMin; j < xMax; j++) {
-        //         if (i == y && j == x) continue;
-        //         if (board[i][j] === item) count++;
-        //     }
-        // }
         this.#Around(y, x, (i, j) => {
             if (i == y && j == x) return;
             if (board[i][j] === item) count++;
@@ -288,5 +275,4 @@ class Game {
             }
         }
     }
-
 }

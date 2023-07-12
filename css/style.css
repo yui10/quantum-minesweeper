@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    /* outline: purple solid 1px; */
     text-align: center;
 }
 
@@ -32,7 +31,6 @@ footer {
 #status {
     display: inline-flex;
     font-size: 0;
-    /* justify-content: space-between; */
 }
 
 #status * {
