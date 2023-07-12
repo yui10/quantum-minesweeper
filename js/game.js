@@ -34,7 +34,7 @@ const OperationStatus = {
 }
 
 class Game {
-    #base_board = [[], []];
+    #base_board = [[], [], []];
     get Board() { return this.#base_board[1].map(list => ({ ...list })); }
 
     #width = 9;
@@ -125,6 +125,13 @@ class Game {
                     this.#base_board[0][r_y][r_x] = GameItem.BOMB;
                     break;
                 }
+            }
+        }
+
+        for (let i = 0; i < this.#height; i++) {
+            this.#base_board[2][i] = Array(this.#width).fill(0);
+            for (let j = 0; j < this.#width; j++) {
+                this.#base_board[2][i][j] = this.#CountAroundItemCell(i, j, GameItem.BOMB, this.#base_board[0]);
             }
         }
     }
@@ -230,7 +237,7 @@ class Game {
             Bomb_count_map[i] = Array(this.#width).fill(0);
             for (let j = 0; j < this.#width; j++) {
                 if (this.#base_board[1][i][j] === CellStatus.Open) {
-                    Bomb_count_map[i][j] = this.#CountAroundItemCell(i, j, GameItem.BOMB, Quantum_map);
+                    Bomb_count_map[i][j] = (this.#base_board[2][i][j] === 0) ? "" : this.#CountAroundItemCell(i, j, GameItem.BOMB, Quantum_map);
                 }
             }
         }
