@@ -35,7 +35,7 @@ const createUI = (game) => {
         if (event.target instanceof HTMLDivElement) {
             const x = parseInt(event.target.dataset.x);
             const y = parseInt(event.target.dataset.y);
-            
+
             let result = OperationStatus.None;
             let beforeGameStatus = game.GameStatus;
             if (event.button == 0) { //左クリック
