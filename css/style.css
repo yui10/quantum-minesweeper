@@ -38,6 +38,25 @@ footer {
     margin: 1%;
 }
 
+#touch-menu {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+}
+
+#touch-menu.show {
+    display: flex;
+}
+
+#touch-menu .touch-group {
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height:24px;
+}
+
 #field {
     display: inline-block;
     height: 180px;
@@ -54,6 +73,7 @@ footer {
     outline: black solid 1px;
     background: gainsboro;
     text-align: center;
+    font-weight: bold;
 }
 
 #field #cells.Open {

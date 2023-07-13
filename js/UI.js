@@ -7,6 +7,8 @@ const createUI = (game) => {
     const elemMessage = document.getElementById("GameMessage");
     const elemGameLevel = document.getElementById("gameLevel");
     const elemObservationButton = document.getElementById("observationButton");
+    const elemTouch_menu = document.getElementById("touch-menu");
+
     let cells = [];
     let startTime = new Date();
 
@@ -31,35 +33,53 @@ const createUI = (game) => {
         resize();
     };
 
-    const click = (event) => {
+    const click = (y, x, flag) => {
+        let result = OperationStatus.None;
+        let beforeGameStatus = game.GameStatus;
+        result = game.Click(y, x, flag);
+
+        switch (result) {
+            case OperationStatus.GameClear:
+            case OperationStatus.GameOver:
+                elemMessage.innerHTML = `<p>${result.description.toUpperCase()}!<p>`;
+            case OperationStatus.Success:
+                if (beforeGameStatus === GameStatus.INITIALIZED) {
+                    startTime = new Date();
+                }
+                cellStatusChange();
+                elemBombCounter.innerHTML = (game.BombCount - game.NowFlagCount).toString().padStart(3, "0");
+                break;
+        }
+    };
+
+    const mouse = (event) => {
+        event.preventDefault();
         if (event.target instanceof HTMLDivElement) {
             const x = parseInt(event.target.dataset.x);
             const y = parseInt(event.target.dataset.y);
-
-            let result = OperationStatus.None;
-            let beforeGameStatus = game.GameStatus;
             if (event.button == 0) { //左クリック
-                result = game.Click(y, x, false);
+                click(y, x, false);
             }
             else if (event.button == 1) { //中央
             }
             else if (event.button == 2) { //右クリック
-                result = game.Click(y, x, true);
+                click(y, x, true);
             }
 
-            switch (result) {
-                case OperationStatus.GameClear:
-                case OperationStatus.GameOver:
-                    elemMessage.innerHTML = `<p>${result.description.toUpperCase()}!<p>`;
-                case OperationStatus.Success:
-                    if (beforeGameStatus === GameStatus.INITIALIZED) {
-                        startTime = new Date();
-                    }
-                    cellStatusChange();
-                    elemBombCounter.innerHTML = (game.BombCount - game.NowFlagCount).toString().padStart(3, "0");
-                    break;
-            }
         }
+    };
+
+    const touch = (event) => {
+        event.preventDefault();
+
+        elemTouch_menu.dataset.x = event.target.dataset.x;
+        elemTouch_menu.dataset.y = event.target.dataset.y;
+
+        const posX = event.touches[0].clientX;
+        const posY = event.touches[0].clientY;
+        elemTouch_menu.style.left = posX + 'px';
+        elemTouch_menu.style.top = posY + 'px';
+        elemTouch_menu.classList.add('show');
     };
 
     const init = () => {
@@ -74,7 +94,22 @@ const createUI = (game) => {
         document.getElementById("NewGameButton").addEventListener("mousedown", levelChange);
 
         elemField.oncontextmenu = () => false;
-        elemField.addEventListener("mousedown", click);
+        elemField.addEventListener("mousedown", mouse);
+        elemField.addEventListener("touchstart", touch);
+        elemTouch_menu.addEventListener("click", (event) => {
+            if (event.target instanceof HTMLDivElement) {
+                const x = parseInt(elemTouch_menu.dataset.x);
+                const y = parseInt(elemTouch_menu.dataset.y);
+                click(y, x, (event.target.dataset.touchMenu == "flag"));
+            }
+        });
+
+        document.body.addEventListener('click', () => {
+            if (elemTouch_menu.classList.contains('show')) {
+                elemTouch_menu.classList.remove('show');
+                elemTouch_menu.dataset.x = elemTouch_menu.dataset.y = "";
+            }
+        });
 
         setInterval(timerEvent, 1000);
     };
