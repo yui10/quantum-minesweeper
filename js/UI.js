@@ -7,10 +7,12 @@ const createUI = (game) => {
     const elemMessage = document.getElementById("GameMessage");
     const elemGameLevel = document.getElementById("gameLevel");
     const elemObservationButton = document.getElementById("observationButton");
+    const elemObservationCount = document.getElementById("observationCount");
     const elemTouch_menu = document.getElementById("touch-menu");
 
     let cells = [];
     let startTime = new Date();
+    let ObservationCount = 0;
 
     const resize = () => {
         // elemBoard.style.height = elemField.offsetHeight + elemStatus.offsetHeight;
@@ -127,6 +129,8 @@ const createUI = (game) => {
     };
 
     const cellStatusChange = () => {
+        ObservationCount++;
+        elemObservationCount.innerHTML = ObservationCount.toString().padStart(4, "0");
         let map = game.GetBombCountMap();
         for (let i = 0; i < game.Height; i++) {
             for (let j = 0; j < game.Width; j++) {
@@ -169,6 +173,9 @@ const createUI = (game) => {
         elemBombCounter.innerHTML = bombCount.toString().padStart(3, "0");
         elemTimer.innerHTML = "000";
         elemMessage.innerHTML = "";
+
+        ObservationCount = 0;
+        elemObservationCount.innerHTML = "0000";
         //盤面削除
         while (elemField.firstChild) {
             elemField.removeChild(elemField.firstChild);

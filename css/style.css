@@ -34,8 +34,9 @@ footer {
 }
 
 #status * {
-    font-size: small;
+    font-size: medium;
     margin: 1%;
+    text-align: center;
 }
 
 #touch-menu {
@@ -54,7 +55,7 @@ footer {
     background-color: white;
     border-radius: 50%;
     text-align: center;
-    line-height:24px;
+    line-height: 24px;
 }
 
 #field {
