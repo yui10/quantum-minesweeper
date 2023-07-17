@@ -76,6 +76,15 @@ footer {
     font-weight: bold;
 }
 
+#field #cells:hover {
+    background: white;
+}
+
+#field #cells.hover {
+    outline: black solid 2px;
+    background: white;
+}
+
 #field #cells.Open {
     background: aliceblue;
 }

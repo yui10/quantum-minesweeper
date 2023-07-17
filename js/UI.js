@@ -75,6 +75,13 @@ const createUI = (game) => {
         elemTouch_menu.dataset.x = event.target.dataset.x;
         elemTouch_menu.dataset.y = event.target.dataset.y;
 
+        let rem = document.querySelectorAll(".hover");
+        for (let i = 0; i < rem.length; i++) {
+            rem.item(i).classList.remove("hover");
+        }
+        let set = document.querySelectorAll(`[data-y="${event.target.dataset.y}"][data-x="${event.target.dataset.x}"]#cells`)
+        set.item(0).classList.add("hover");
+
         const posX = event.touches[0].clientX;
         const posY = event.touches[0].clientY;
         elemTouch_menu.style.left = posX + 'px';
@@ -108,6 +115,11 @@ const createUI = (game) => {
             if (elemTouch_menu.classList.contains('show')) {
                 elemTouch_menu.classList.remove('show');
                 elemTouch_menu.dataset.x = elemTouch_menu.dataset.y = "";
+
+                let rem = document.querySelectorAll(".hover");
+                for (let i = 0; i < rem.length; i++) {
+                    rem.item(i).classList.remove("hover");
+                }
             }
         });
 
