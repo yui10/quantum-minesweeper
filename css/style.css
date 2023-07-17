@@ -34,8 +34,9 @@ footer {
 }
 
 #status * {
-    font-size: small;
+    font-size: medium;
     margin: 1%;
+    text-align: center;
 }
 
 #touch-menu {
@@ -54,7 +55,7 @@ footer {
     background-color: white;
     border-radius: 50%;
     text-align: center;
-    line-height:24px;
+    line-height: 24px;
 }
 
 #field {
@@ -74,6 +75,15 @@ footer {
     background: gainsboro;
     text-align: center;
     font-weight: bold;
+}
+
+#field #cells:hover {
+    background: white;
+}
+
+#field #cells.hover {
+    outline: black solid 2px;
+    background: white;
 }
 
 #field #cells.Open {
