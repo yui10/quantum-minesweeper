@@ -7,10 +7,12 @@ const createUI = (game) => {
     const elemMessage = document.getElementById("GameMessage");
     const elemGameLevel = document.getElementById("gameLevel");
     const elemObservationButton = document.getElementById("observationButton");
+    const elemObservationCount = document.getElementById("observationCount");
     const elemTouch_menu = document.getElementById("touch-menu");
 
     let cells = [];
     let startTime = new Date();
+    let ObservationCount = 0;
 
     const resize = () => {
         // elemBoard.style.height = elemField.offsetHeight + elemStatus.offsetHeight;
@@ -75,6 +77,13 @@ const createUI = (game) => {
         elemTouch_menu.dataset.x = event.target.dataset.x;
         elemTouch_menu.dataset.y = event.target.dataset.y;
 
+        let rem = document.querySelectorAll(".hover");
+        for (let i = 0; i < rem.length; i++) {
+            rem.item(i).classList.remove("hover");
+        }
+        let set = document.querySelectorAll(`[data-y="${event.target.dataset.y}"][data-x="${event.target.dataset.x}"]#cells`)
+        set.item(0).classList.add("hover");
+
         const posX = event.touches[0].clientX;
         const posY = event.touches[0].clientY;
         elemTouch_menu.style.left = posX + 'px';
@@ -108,6 +117,11 @@ const createUI = (game) => {
             if (elemTouch_menu.classList.contains('show')) {
                 elemTouch_menu.classList.remove('show');
                 elemTouch_menu.dataset.x = elemTouch_menu.dataset.y = "";
+
+                let rem = document.querySelectorAll(".hover");
+                for (let i = 0; i < rem.length; i++) {
+                    rem.item(i).classList.remove("hover");
+                }
             }
         });
 
@@ -115,6 +129,8 @@ const createUI = (game) => {
     };
 
     const cellStatusChange = () => {
+        ObservationCount++;
+        elemObservationCount.innerHTML = ObservationCount.toString().padStart(4, "0");
         let map = game.GetBombCountMap();
         for (let i = 0; i < game.Height; i++) {
             for (let j = 0; j < game.Width; j++) {
@@ -157,6 +173,9 @@ const createUI = (game) => {
         elemBombCounter.innerHTML = bombCount.toString().padStart(3, "0");
         elemTimer.innerHTML = "000";
         elemMessage.innerHTML = "";
+
+        ObservationCount = 0;
+        elemObservationCount.innerHTML = "0000";
         //盤面削除
         while (elemField.firstChild) {
             elemField.removeChild(elemField.firstChild);
